@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import zodErrorHandler from "../GlobalHandelers/zodError";
 import { TErroSource } from "../GlobalInterfaces/error.interface";
+import config from "../config";
 
 const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
     let statusCode: number
@@ -25,7 +26,8 @@ const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFun
         success: false,
         statusCode,
         message,
-        errorSource
+        errorSource,
+        stack : config.nodeEnv === 'development' ? err.stack : 'Stack is Unavaible !!'
     })
 }
 

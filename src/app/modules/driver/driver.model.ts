@@ -1,0 +1,27 @@
+import { Schema, model } from "mongoose";
+import { TDriver } from "./driver.interface";
+
+const driverSchema = new Schema<TDriver>({
+  Did: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  dateOfBirth: { type: String, required: true },
+  contactNumber: { type: String, required: true },
+  isVerified: { type: Boolean, default:false },
+  kycVerified: { type: Boolean, default : false },
+  role: { type: String},
+  credit: { type: Number,  default: 0 },
+  rating: { type: Number,  default: 0 },
+  complitedRides: [{ type: String, default:[] }],
+  CurstomerReview: [{
+    Cname: { type: String},
+    review: { type: String }
+  }],
+  category: { type: String, enum: ["car", "truck"] },
+  isActive: { type: Boolean, default: true },
+  profileImg: { type: String },
+  rideHistory: [{ type: String , ref :'Rides'}]
+});
+
+export const driverModel = model<TDriver>("Driver", driverSchema);
+
