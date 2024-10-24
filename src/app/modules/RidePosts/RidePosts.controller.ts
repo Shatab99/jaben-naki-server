@@ -15,11 +15,12 @@ const postARide = catchAsync(async (req,res)=>{
 
 
 const updateRidePosts = catchAsync(async (req, res)=>{
-    const {email} = req.user;
     const body = req.body;
     const result = await ridePostsModel.findByIdAndUpdate(body)
     resSend(res,200,"Ride Post Updated", result)
 })
+
+
 
 
 export const ridePostsController = {

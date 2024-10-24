@@ -2,6 +2,7 @@ export type TDriver = {
     Did: string;
     email: string;
     name: string;
+    carDetails: string;
     dateOfBirth: string;
     contactNumber: string;
     isVerified: boolean;
@@ -14,7 +15,6 @@ export type TDriver = {
         Cname: string,
         review: string
     }[];
-    category: "car" | "truck";
     isActive: boolean;
     profileImg: string;
     rideHistory: string[];

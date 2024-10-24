@@ -6,6 +6,7 @@ import { driverRouter } from "../driver/driver.route";
 import { AdminRouter } from "../Admin/Admin.Route";
 import { RideRouter } from "../Rides/Ride.route";
 import { ridePostsRouter } from "../RidePosts/RidePosts.router";
+import { kycRouter } from "../KycVerification/kyc.route";
 
 
 const router = Router()
@@ -39,6 +40,10 @@ const modules = [
     {
         path : "/ridePosts",
         route: ridePostsRouter
+    },
+    {
+        path : "/kyc",
+        route: kycRouter
     },
 ]
 

@@ -13,8 +13,8 @@ const userSchema = new Schema<TUser, User>({
   },
   status: {
     type: String,
-    enum: ["warned", "blocked", "good"],
-    required: true
+    enum: ["warned", "blocked", "good", "pending"],
+    default : "good"
   }
 }, { timestamps: true });
 

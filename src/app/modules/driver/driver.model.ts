@@ -5,6 +5,7 @@ const driverSchema = new Schema<TDriver>({
   Did: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
+  carDetails: { type: String, required: true },
   dateOfBirth: { type: String, required: true },
   contactNumber: { type: String, required: true },
   isVerified: { type: Boolean, default:false },
@@ -17,7 +18,6 @@ const driverSchema = new Schema<TDriver>({
     Cname: { type: String},
     review: { type: String }
   }],
-  category: { type: String, enum: ["car", "truck"] },
   isActive: { type: Boolean, default: true },
   profileImg: { type: String },
   rideHistory: [{ type: String , ref :'Rides'}]

@@ -5,7 +5,7 @@ export interface TUser {
     userName : string
     password : string
     role : "passenger" | "driver" | 'admin'
-    status : "warned" | "blocked" | "good"
+    status : "warned" | "blocked" | "good" | "pending"
 }
 
 export interface User extends Model<TUser> { 

@@ -5,8 +5,7 @@ const createPassenger = z.object({
         user: z.object({
             email: z.string().email({ message: "Invalid email address" }),
             userName: z.string().min(3, { message: "Username must be at least 3 characters long" }),
-            password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
-            status: z.enum(["warned", "blocked", "good"], { message: "Invalid status" })
+            password: z.string().min(6, { message: "Password must be at least 6 characters long" })
         }),
         passenger: z.object({
             email: z.string().email({ message: "Invalid email address" }),
@@ -24,9 +23,9 @@ const createDriver = z.object({
         user: z.object({
             email: z.string().email({ message: "Invalid email address" }),
             userName: z.string().min(3, { message: "Username must be at least 3 characters long" }),
-            password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
-            status: z.enum(["warned", "blocked", "good"], { message: "Invalid status" })
+            password: z.string().min(6, { message: "Password must be at least 6 characters long" })
         }),
+
         driver: z.object({
             email: z.string().email({ message: "Invalid email address" }),
             name: z.string().min(1, { message: "Name is required" }),
@@ -36,10 +35,19 @@ const createDriver = z.object({
                 Cname: z.string().min(1, { message: "Customer name is required" }),
                 review: z.string().min(1, { message: "Review is required" })
             })).optional(),
-            category: z.enum(["car", "truck"], { message: "Invalid vehicle category" }),
-            isActive: z.boolean().default(true),
+            isActive: z.boolean(),
             profileImg: z.string().url({ message: "Invalid URL for profile image" }),
             rideHistory: z.array(z.string()).optional(),
+        }),
+
+        carDetails: z.object({
+            carSerialNo: z.string().min(1, { message: "Car serial number is required" }),
+            category: z.enum(["car", "truck", "ambulance"], {
+                required_error: "Category is required",
+                invalid_type_error: "Invalid category",
+            }),
+            carImg: z.string().min(1, { message: "Car image URL is required" }),
+            carColor: z.string().min(1, { message: "Car color is required" }),
         })
     })
 });
