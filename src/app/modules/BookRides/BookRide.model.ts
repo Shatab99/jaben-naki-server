@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
-import { TRide } from "./Ride.interface";
+import { TBookRide } from "./BookRide.interface";
 
-const rideSchema = new Schema<TRide>({
+
+const rideSchema = new Schema<TBookRide>({
   passengerEmail: { type: String, required: true },
   driverEmail: { type: String, required: true },
   passengerName: { type: String, required: true },
@@ -24,4 +25,4 @@ const rideSchema = new Schema<TRide>({
   isPaid : {type:Boolean, default : false}
 }, { timestamps: true }); 
 
-export const rideModel = model<TRide>("Ride", rideSchema);
+export const bookRideModel = model<TBookRide>("Ride", rideSchema);

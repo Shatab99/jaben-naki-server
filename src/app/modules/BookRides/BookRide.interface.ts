@@ -1,4 +1,4 @@
-export type TRide = {
+export type TBookRide = {
     passengerEmail : string;
     driverEmail :string;
     passengerName :string;
