@@ -42,7 +42,15 @@ Below is a list of API endpoints for your project. Click each link to view the e
 **Method**: `PATCH`
 
 ### Get Me Passenger
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/passenger/me`](https://jaben-naki-server.vercel.app/api/v1/passenger/me)  
+**Method**: `GET`
+
+### Get Me Driver
 **URL**: [`https://jaben-naki-server.vercel.app/api/v1/driver/me`](https://jaben-naki-server.vercel.app/api/v1/driver/me)  
+**Method**: `GET`
+
+### Get Me Admin
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/admin/me`](https://jaben-naki-server.vercel.app/api/v1/admin/me)  
 **Method**: `GET`
 
 ### Cancel / Remove Ride Post
