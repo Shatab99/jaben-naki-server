@@ -11,4 +11,5 @@ export interface TUser {
 export interface User extends Model<TUser> { 
     isUserExists(email : string) : Promise<TUser>
     isPasswordCorrect(plain:string, hash :string) : Promise<boolean>; 
+    isUserPending(email : string) : Promise<boolean>;
 }

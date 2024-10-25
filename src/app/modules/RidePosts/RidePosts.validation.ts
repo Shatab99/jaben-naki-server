@@ -11,6 +11,7 @@ const createRidePosts = z.object({
         }),
     })
 });
+
 const updateRidePosts = z.object({
     body: z.object({
         from: z.string().min(1, { message: "Starting location is required" }).optional(),

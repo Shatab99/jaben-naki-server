@@ -4,9 +4,9 @@ import { authRouter } from "../Auth/auth.route";
 import { passengerRouter } from "../passenger/passenger.router";
 import { driverRouter } from "../driver/driver.route";
 import { AdminRouter } from "../Admin/Admin.Route";
-import { RideRouter } from "../Rides/Ride.route";
 import { ridePostsRouter } from "../RidePosts/RidePosts.router";
 import { kycRouter } from "../KycVerification/kyc.route";
+import { RideRouter } from "../Rides/Ride.router";
 
 
 const router = Router()

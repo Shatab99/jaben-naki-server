@@ -33,5 +33,15 @@ userSchema.statics.isPasswordCorrect = async function (plain, hash) {
   return await bcrypt.compare(plain, hash)
 }
 
+userSchema.statics.isUserPending = async function(email){
+  const user = await userModel.findOne({email});
+  if(user?.status === 'pending'){
+    return true;
+  }
+  else{
+    return false ;
+  }
+}
+
 
 export const userModel = model<TUser, User>("User", userSchema)
