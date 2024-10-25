@@ -8,6 +8,7 @@ const ridePostsSchema = new Schema<TRidePosts>({
   from: { type: String, required: true },
   to: { type: String, required: true },
   fare: { type: String, required: true },
+  journeyStartTime: { type: String, required: true },
   type: { 
     type: String, 
     enum: ["ride", "parcel"], 

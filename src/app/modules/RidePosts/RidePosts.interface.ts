@@ -4,5 +4,6 @@ export type TRidePosts ={
     from : string;
     to : string;
     fare : string;
+    journeyStartTime : string;
     type : "ride"| "parcel";
 }
