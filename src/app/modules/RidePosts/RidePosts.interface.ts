@@ -6,4 +6,5 @@ export type TRidePosts ={
     fare : string;
     journeyStartTime : string;
     type : "ride"| "parcel";
+    vacantSeats : number;
 }

@@ -8,7 +8,9 @@ const rideSchema = new Schema<TRide>({
   driverName: { type: String, required: true },
   from: { type: String, required: true },
   to: { type: String, required: true },
-  fare: { type: String, required: true },
+  journeyStartTime: { type: String, required: true },
+  fare: { type: Number, required: true },
+  numberOfSeats: { type: Number, required: true },
   status: { 
     type: String, 
     enum: ["notPicked", "startedRide", "reached"], 
@@ -19,6 +21,7 @@ const rideSchema = new Schema<TRide>({
     enum: ["ride", "parcel"], 
     required: true 
   },
+  isPaid : {type:Boolean, default : false}
 }, { timestamps: true }); 
 
 export const rideModel = model<TRide>("Ride", rideSchema);

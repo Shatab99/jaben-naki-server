@@ -14,6 +14,7 @@ const ridePostsSchema = new Schema<TRidePosts>({
     enum: ["ride", "parcel"], 
     required: true 
   },
+  vacantSeats: { type: Number, default : 0},
 }, { timestamps: true });  // Adding timestamps for createdAt and updatedAt fields
 
 export const ridePostsModel = model<TRidePosts>("RidePost", ridePostsSchema);
