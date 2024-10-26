@@ -11,6 +11,12 @@ const createRidePosts = z.object({
                 /^(0[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/,
                 "journeyStartTime must be in HH:MM AM/PM format"
             ),
+        journeyDate: z
+            .string()
+            .regex(
+                /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/,
+                "journeyDate must be in dd-mm-yyyy format"
+            ).optional(),
         type: z.enum(["ride", "parcel"], {
             required_error: "Type is required",
             invalid_type_error: "Invalid type",

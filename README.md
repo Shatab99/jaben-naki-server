@@ -171,6 +171,32 @@ Below is a list of API endpoints for your project. Click each link to view the e
 **URL**: [`https://jaben-naki-server.vercel.app/api/v1/kyc/get-all-appeals`](https://jaben-naki-server.vercel.app/api/v1/kyc/get-all-appeals)  
 **Method**: `GET`
 
+### Book A Ride (Passenger) :Id will be ridePosts _id
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/:id)  
+**Method**: `PATCH`
+
+```json 
+
+{
+  "passengerEmail": "passenger.jane@example.com",
+  "passengerName": "John Doe",
+  "numberOfSeats": 1
+}
+
+```
+
+### Edit Seat (Passenger) :Id will be bookRides  _id
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/edit-seat/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/edit-seat/:id)  
+**Method**: `PATCH`
+
+```json 
+
+{
+  "numberOfSeats": 1
+}
+
+```
+
 ---
 
 This list now provides direct links to the production server endpoints on Vercel.

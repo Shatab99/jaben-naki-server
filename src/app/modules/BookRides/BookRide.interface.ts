@@ -1,4 +1,5 @@
 export type TBookRide = {
+    ridePostId : string;
     passengerEmail : string;
     driverEmail :string;
     passengerName :string;
@@ -6,6 +7,7 @@ export type TBookRide = {
     from : string
     to : string
     journeyStartTime : string
+    journeyDate : string
     fare : number
     numberOfSeats : number
     status : "notPicked" | "startedRide" | "reached"

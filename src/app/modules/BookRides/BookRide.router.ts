@@ -5,10 +5,11 @@ import { UserRole } from "../../GlobalInterfaces/global.userRole";
 import validate from "../../Utils/validation.zod";
 import { bookRideValidation } from "./BookRide.validation";
 
-
-
 const router = Router()
+const {bookRide, editSeat} = bookRideValidation
 
-router.post("/create-Ride", auth(UserRole.passenger),validate(bookRideValidation) , RideController.createRide)
+router.post("/:id", auth(UserRole.passenger),validate(bookRide) , RideController.bookRide)
+
+router.patch("/edit-seat/:id", auth(UserRole.passenger),validate(editSeat) , RideController.editSeat)
 
 export const BookRidesRouter = router;

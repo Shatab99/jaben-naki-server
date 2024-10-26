@@ -3,6 +3,7 @@ import { TBookRide } from "./BookRide.interface";
 
 
 const rideSchema = new Schema<TBookRide>({
+  ridePostId :{ type: String, required: true },
   passengerEmail: { type: String, required: true },
   driverEmail: { type: String, required: true },
   passengerName: { type: String, required: true },
@@ -10,6 +11,7 @@ const rideSchema = new Schema<TBookRide>({
   from: { type: String, required: true },
   to: { type: String, required: true },
   journeyStartTime: { type: String, required: true },
+  journeyDate: { type: String, required: true },
   fare: { type: Number, required: true },
   numberOfSeats: { type: Number, required: true },
   status: { 
@@ -25,4 +27,4 @@ const rideSchema = new Schema<TBookRide>({
   isPaid : {type:Boolean, default : false}
 }, { timestamps: true }); 
 
-export const bookRideModel = model<TBookRide>("Ride", rideSchema);
+export const bookRideModel = model<TBookRide>("RideBooks", rideSchema);
