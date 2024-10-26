@@ -11,5 +11,6 @@ const {bookRide, editSeat} = bookRideValidation
 router.post("/:id", auth(UserRole.passenger),validate(bookRide) , RideController.bookRide)
 
 router.patch("/edit-seat/:id", auth(UserRole.passenger),validate(editSeat) , RideController.editSeat)
+router.delete("/cancel/:id", auth(UserRole.passenger),RideController.cancelRide)
 
 export const BookRidesRouter = router;

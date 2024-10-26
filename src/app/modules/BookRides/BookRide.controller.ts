@@ -68,10 +68,6 @@ const editSeat = catchAsync(async (req, res) => {
         throw new Error("No seat Available !")
     }
 
-    console.log(typeof (Number(ridePost?.fare)))
-    console.log(Number(ridePost?.fare))
-    console.log(ridePost)
-
     const updateRes = await bookRideModel.findByIdAndUpdate(id, {
         numberOfSeats, fare: Number(ridePost?.fare) * Number(numberOfSeats)
     })
@@ -85,11 +81,24 @@ const editSeat = catchAsync(async (req, res) => {
 
 
 const cancelRide = catchAsync(async (req, res) => {
+    const { email } = req.user;
     const id = req.params.id;
+    const passengerData = await PassengerModel.findOne({ email })
+    const bookRide = await bookRideModel.findById(id);
+    const ridePost = await ridePostsModel.findById(bookRide?.ridePostId)
 
+
+    const updateRidePost = await ridePostsModel.findByIdAndUpdate(bookRide?.ridePostId, {
+        vacantSeats: Number(ridePost?.vacantSeats) + Number(bookRide?.numberOfSeats),
+        $pull: { pessengerBooked: passengerData?._id }
+    })
+
+    const cancelResult = await bookRideModel.findByIdAndDelete(id)
+
+    resSend(res, 200, "Ride canceled Successfully", {updateRidePost, cancelResult})
 })
 
 
 export const RideController = {
-    bookRide, editSeat
+    bookRide, editSeat, cancelRide
 }

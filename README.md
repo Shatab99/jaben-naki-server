@@ -173,7 +173,7 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 ### Book A Ride (Passenger) :Id will be ridePosts _id
 **URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/:id)  
-**Method**: `PATCH`
+**Method**: `POST`
 
 ```json 
 
@@ -194,6 +194,10 @@ Below is a list of API endpoints for your project. Click each link to view the e
 }
 
 ```
+
+### Cancel Ride (Passenger) :Id will be bookRides  _id  
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/cancel/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/cancel/:id)  
+**Method**: `DELETE`
 
 ---
 
