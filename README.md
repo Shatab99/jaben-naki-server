@@ -178,8 +178,6 @@ Below is a list of API endpoints for your project. Click each link to view the e
 ```json 
 
 {
-  "passengerEmail": "passenger.jane@example.com",
-  "passengerName": "John Doe",
   "numberOfSeats": 1
 }
 

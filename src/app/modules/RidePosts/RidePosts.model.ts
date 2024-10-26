@@ -13,7 +13,7 @@ const ridePostsSchema = new Schema<TRidePosts>({
     driverName: { type: String, required: true },
     from: { type: String, required: true },
     to: { type: String, required: true },
-    fare: { type: String, required: true },
+    fare: { type: Number, required: true },
     journeyStartTime: { type: String, required: true },
     journeyDate: { 
         type: String, 

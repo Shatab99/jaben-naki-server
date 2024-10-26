@@ -3,7 +3,7 @@ export type TRidePosts ={
     driverName : string;
     from : string;
     to : string;
-    fare : string;
+    fare : number;
     journeyStartTime : string;
     journeyDate : string;
     type : "ride"| "parcel";
