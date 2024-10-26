@@ -2,7 +2,7 @@
 
 # Api's For JABEN NAKI 
 
-## [`Base Url ☄`](https://jaben-naki-server.vercel.app/) [`Project Architecture 📍`](https://www.figma.com/board/Df7jWtReQ4WckUFHl8IyTx/Jaben-naki-Schema?node-id=0-1&node-type=canvas&t=duQZjV767Ut5Tbey-0) 
+## [`Live Link 🌍`](https://jaben-naki-server.vercel.app/) [`Project Architecture 📍`](https://www.figma.com/board/Df7jWtReQ4WckUFHl8IyTx/Jaben-naki-Schema?node-id=0-1&node-type=canvas&t=duQZjV767Ut5Tbey-0) 
 
 
 ## API Endpoints
