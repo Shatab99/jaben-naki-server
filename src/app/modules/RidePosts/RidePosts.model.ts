@@ -12,22 +12,31 @@ const ridePostsSchema = new Schema<TRidePosts>({
     driverEmail: { type: String, required: true },
     driverName: { type: String, required: true },
     from: { type: String, required: true },
+    pickUpPoint: { type: String, required: true },
     to: { type: String, required: true },
     fare: { type: Number, required: true },
     journeyStartTime: { type: String, required: true },
-    journeyDate: { 
-        type: String, 
-        required: true, 
+    journeyDate: {
+        type: String,
+        required: true,
         default: () => formatDate(new Date()) // Setting today's date as default in dd-mm-yyyy format
     },
-    type: { 
-        type: String, 
-        enum: ["ride", "parcel"], 
-        required: true 
+    type: {
+        type: String,
+        enum: ["ride", "parcel"],
+        required: true
     },
-    vacantSeats: { type: Number, default : 0 },
-    pessengerBooked: [{ type: String, ref: "Passengers" }]
+    totalSeats: { type: Number, required: true },
+    vacantSeats: { type: Number },
+    bookingIds: [{ type: String, ref: "RideBook" }]
 }, { timestamps: true });  // Adding timestamps for createdAt and updatedAt fields
+
+ridePostsSchema.pre("save", function (next) {
+    if (this.isNew && !this.vacantSeats) {
+        this.vacantSeats = this.totalSeats;
+    }
+    next();
+});
 
 export const ridePostsModel = model<TRidePosts>("RidePost", ridePostsSchema);
 

@@ -2,9 +2,11 @@ import { z } from "zod";
 
 const createRidePosts = z.object({
     body: z.object({
+        pickUpPoint: z.string().min(1, { message: "Starting location is required" }),
         from: z.string().min(1, { message: "Starting location is required" }),
         to: z.string().min(1, { message: "Destination is required" }),
         fare: z.string().min(1, { message: "Fare amount is required" }),
+        totalSeats : z.number().min(1, { message: "Total seats are required" }),
         journeyStartTime: z
             .string()
             .regex(

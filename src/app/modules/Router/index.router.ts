@@ -7,6 +7,7 @@ import { AdminRouter } from "../Admin/Admin.Route";
 import { ridePostsRouter } from "../RidePosts/RidePosts.router";
 import { kycRouter } from "../KycVerification/kyc.route";
 import { BookRidesRouter } from "../BookRides/BookRide.router";
+import { startRideRouter } from "../StartRide/startRide.router";
 
 
 
@@ -45,6 +46,10 @@ const modules = [
     {
         path : "/kyc",
         route: kycRouter
+    },
+    {
+        path : "/startRide",
+        route: startRideRouter
     },
 ]
 

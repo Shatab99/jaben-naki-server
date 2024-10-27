@@ -27,4 +27,4 @@ const rideSchema = new Schema<TBookRide>({
   isPaid : {type:Boolean, default : false}
 }, { timestamps: true }); 
 
-export const bookRideModel = model<TBookRide>("RideBooks", rideSchema);
+export const bookRideModel = model<TBookRide>("RideBook", rideSchema);

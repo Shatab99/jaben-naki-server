@@ -28,10 +28,7 @@ const bookRide = catchAsync(async (req, res) => {
     const passengerData = await PassengerModel.findOne({ email })
 
 
-    const updateRidePost = await ridePostsModel.findByIdAndUpdate(id, {
-        vacantSeats: Number(ridePost?.vacantSeats) - numberOfSeats,
-        $push: { pessengerBooked: passengerData?._id }
-    })
+
 
     const result = await bookRideModel.create({
         ridePostId: ridePost?._id,
@@ -47,6 +44,16 @@ const bookRide = catchAsync(async (req, res) => {
         type: ridePost?.type,
         isPaid: false
     })
+
+    const afterBook = await bookRideModel.findOne({ passengerEmail: email })
+
+
+    const updateRidePost = await ridePostsModel.findByIdAndUpdate(id, {
+        vacantSeats: Number(ridePost?.vacantSeats) - numberOfSeats,
+        $push: { bookingIds: afterBook?._id }
+    })
+
+
     resSend(res, 200, "Ride Placed Successfully !", { result, updateRidePost })
 })
 
@@ -81,21 +88,19 @@ const editSeat = catchAsync(async (req, res) => {
 
 
 const cancelRide = catchAsync(async (req, res) => {
-    const { email } = req.user;
     const id = req.params.id;
-    const passengerData = await PassengerModel.findOne({ email })
     const bookRide = await bookRideModel.findById(id);
     const ridePost = await ridePostsModel.findById(bookRide?.ridePostId)
 
 
     const updateRidePost = await ridePostsModel.findByIdAndUpdate(bookRide?.ridePostId, {
         vacantSeats: Number(ridePost?.vacantSeats) + Number(bookRide?.numberOfSeats),
-        $pull: { pessengerBooked: passengerData?._id }
+        $pull: { bookingIds: bookRide?._id }
     })
 
     const cancelResult = await bookRideModel.findByIdAndDelete(id)
 
-    resSend(res, 200, "Ride canceled Successfully", {updateRidePost, cancelResult})
+    resSend(res, 200, "Ride canceled Successfully", { updateRidePost, cancelResult })
 })
 
 

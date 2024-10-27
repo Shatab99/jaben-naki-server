@@ -96,12 +96,16 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 ```json
 {
-  "from": "Downtown Station",
-  "to": "Airport Terminal 1",
-  "fare": "25.50",
+  "pickUpPoint":"Mohammadpur",
+  "from": "Dhaka",
+  "to": "Faridpur",
+  "fare": "300",
+  "totalSeats" : 4,
   "type": "ride",
-  "journeyStartTime": "02:10 PM"
+  "journeyStartTime" :"03:10 PM"
 }
+
+
 
 ```
 
@@ -198,6 +202,10 @@ Below is a list of API endpoints for your project. Click each link to view the e
 ### Cancel Ride (Passenger) :Id will be bookRides  _id  
 **URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/cancel/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/cancel/:id)  
 **Method**: `DELETE`
+
+### When click or press Start Ride Button In his ride post (Driver)
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/startRide/started-ride/:ridePostId`]()  
+**Method**: `POST`
 
 ---
 
