@@ -1,7 +1,7 @@
 export type TStartRide ={
     driverName : string;
     driverEmail : string;
-    passengerBooked : string[];
+    bookingIds : string[];
     totalFare : number;
     from : string;
     to : string;

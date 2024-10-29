@@ -10,7 +10,7 @@ export type TDriver = {
     role: 'driver';
     credit: number;
     rating: number;
-    complitedRides: string[];
+    complitedRides: Number;
     CurstomerReview: {
         Cname: string,
         review: string

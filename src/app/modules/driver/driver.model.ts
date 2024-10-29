@@ -13,7 +13,7 @@ const driverSchema = new Schema<TDriver>({
   role: { type: String},
   credit: { type: Number,  default: 0 },
   rating: { type: Number,  default: 0 },
-  complitedRides: [{ type: String, default:[] }],
+  complitedRides: { type: Number, default:0 },
   CurstomerReview: [{
     Cname: { type: String},
     review: { type: String }

@@ -1,7 +1,6 @@
 import resSend from "../../GlobalHandelers/resSend.handler";
 import catchAsync from "../../Utils/catchAsync";
 import { bookRideModel } from "../BookRides/BookRide.model";
-import { PassengerModel } from "../passenger/passenger.model";
 import { ridePostsModel } from "../RidePosts/RidePosts.model";
 import { StartRideModel } from "./startRide.model";
 
@@ -36,8 +35,7 @@ const createStartRide = catchAsync(async (req, res) => {
 
     const deleteRidePost = await ridePostsModel.findByIdAndDelete(ridePostId);
 
-    resSend(res, 200, "You have Started Ride . FiAmanillah for your journey ☺", { insertInStartRide, updateStatusOfAllPassengers })
-
+    resSend(res, 200, "You have Started Ride . FiAmanillah for your journey ☺", { insertInStartRide, updateStatusOfAllPassengers,deleteRidePost })
 
 })
 

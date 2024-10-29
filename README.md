@@ -2,7 +2,7 @@
 
 # Api's For JABEN NAKI 
 
-## [`Live Link 🌍`](https://jaben-naki-server.vercel.app/) [`Project Architecture 📍`](https://www.figma.com/board/Df7jWtReQ4WckUFHl8IyTx/Jaben-naki-Schema?node-id=0-1&node-type=canvas&t=duQZjV767Ut5Tbey-0) 
+## [`Live Link 🌍`](https://jaben-naki-server.vercel.app/) [`Project Architecture 📍`](https://www.figma.com/board/Legdx54d7O2mI4pHxWFZKA/Jaben-naki-thesis-Project?t=0Yau3f8ZJy6ig6Ej-0) 
 
 
 ## API Endpoints
@@ -28,6 +28,7 @@ Below is a list of API endpoints for your project. Click each link to view the e
     "contactNumber": "1234567890",
     "isVerified": false,
     "role": "passenger",
+    "profileImg" : "example/img/link",
     "rideHistory": []
   }
 }
@@ -206,6 +207,18 @@ Below is a list of API endpoints for your project. Click each link to view the e
 ### When click or press Start Ride Button In his ride post (Driver)
 **URL**: [`https://jaben-naki-server.vercel.app/api/v1/startRide/started-ride/:ridePostId`]()  
 **Method**: `POST`
+
+### When click or press Complete Ride Button In his start ride section (Driver) 
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/complete-the-ride/:startRideId`]()  
+**Method**: `POST`
+
+### Show all driver ride history (Driver) 
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/driver-history`]()  
+**Method**: `GET`
+
+### Show all passenger ride history (Passenger) 
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/passenger-history`]()  
+**Method**: `GET`
 
 ---
 
