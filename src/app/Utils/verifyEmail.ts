@@ -1,5 +1,6 @@
 // emkl cctq cblm odxi
 import nodemailer from "nodemailer"
+import config from "../config";
 
 
 const sendVerifyEmail = async (to: string, html: string) => {
@@ -9,7 +10,7 @@ const sendVerifyEmail = async (to: string, html: string) => {
         secure: false, // Use `true` for port 465, `false` for all other ports
         auth: {
             user: "shatabag4749@gmail.com",
-            pass: "emkl cctq cblm odxi",
+            pass: config.smtpSecret,
         },
     });
     await transporter.sendMail({
