@@ -10,9 +10,7 @@ const createPassenger = z.object({
         passenger: z.object({
             name: z.string().min(1, { message: "Name is required" }),
             dateOfBirth: z.string({ message: "Invalid date of birth" }),
-            contactNumber: z.string().min(10, { message: "Contact number must be at least 10 characters long" }),
-            isVerified: z.boolean().default(false),
-            rideHistory: z.array(z.string()).optional(),
+            contactNumber: z.string().min(10, { message: "Contact number must be at least 10 characters long" })
         })
     })
 });
@@ -34,8 +32,7 @@ const createDriver = z.object({
                 review: z.string().min(1, { message: "Review is required" })
             })).optional(),
             isActive: z.boolean(),
-            profileImg: z.string().url({ message: "Invalid URL for profile image" }),
-            rideHistory: z.array(z.string()).optional(),
+            profileImg: z.string().url({ message: "Invalid URL for profile image" })
         }),
 
         carDetails: z.object({

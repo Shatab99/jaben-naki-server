@@ -220,6 +220,10 @@ Below is a list of API endpoints for your project. Click each link to view the e
 **URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/passenger-history`]()  
 **Method**: `GET`
 
+### verify Email 
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/auth/verifyMail`]()  
+**Method**: `POST`
+
 ---
 
 This list now provides direct links to the production server endpoints on Vercel.
