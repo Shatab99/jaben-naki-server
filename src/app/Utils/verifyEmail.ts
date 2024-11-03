@@ -16,9 +16,17 @@ const sendVerifyEmail = async (to: string, html: string) => {
     await transporter.sendMail({
         from: 'shatabag4749@gmail.com', // sender address
         to, // list of receivers
-        subject: "Verify your email", // Subject line
-        text: "Please click or press the link to verify your email", // plain text body
-        html: `<b>${html}</b>`, // html body
+        subject: "Verify your email from JABEN NAKI", // Subject line
+        html: `
+        <div style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+            <h2>Welcome!</h2>
+            <p>Click the button below to verify your email and activate your account:</p>
+            <a href="${html}" style="display: inline-block; text-decoration: none; color: white; background-color: #4CAF50; padding: 12px 20px; border-radius: 5px; font-size: 16px; font-weight: bold;">
+                Verify Email
+            </a>
+            <p style="margin-top: 20px; color: #555;">If you did not create an account, you can ignore this email.</p>
+        </div>
+    `, // html body
     });
 }
 
