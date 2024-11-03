@@ -29,7 +29,7 @@ const login = catchAsync(async (req, res) => {
         throw new Error("This user is blocked !! ")
     }
 
-    const token = createToken({ email, role, userName })
+    const token = createToken({ email, role, userName }, '10d')
 
     res.cookie("token", token, {
         secure: config.nodeEnv === 'production',
@@ -40,39 +40,35 @@ const login = catchAsync(async (req, res) => {
 })
 
 const verifyEmail = catchAsync(async (req, res) => {
-    const {email} = req.user;
-    const token = req.cookies.token;
-    const verifyUrl = `https://jaben-naki-server.vercel.app/api/v1/auth/update?token=${token}&email=${email}`;
-    sendVerifyEmail(email,verifyUrl)
-    resSend(res, 200, `Mail send successfully to ${email} , Please check your mail !`,{email,token})
+    const { email, role } = req.user;
+    const verifyToken = createToken({ email, role }, '10m')
+
+    const verifyUrl = `https://jaben-naki-server.vercel.app/api/v1/auth/update?token=${verifyToken}`;
+    
+    sendVerifyEmail(email, verifyUrl)
+    resSend(res, 200, `Mail send successfully to ${email} , Please check your mail !`, { email, verifyToken })
 })
 
-const verifyUser = catchAsync(async (req, res)=>{
+const verifyUser = catchAsync(async (req, res) => {
     const token = req.query.token;
-    const email = req.query.email;
-
     const decode = jwt.verify(token as string, config.jwtSecret as string) as JwtPayload
 
-    if(decode.email !== email){
-        throw new Error("You are not authrized !!")
+    if (decode.role === "admin") {
+        const result = await adminModel.findOneAndUpdate({ email : decode.email }, {
+            isVerified: true
+        })
+    }
+    if (decode.role === "driver") {
+        const result = await driverModel.findOneAndUpdate({ email : decode.email  }, {
+            isVerified: true
+        })
+    }
+    if (decode.role === "passenger") {
+        const result = await PassengerModel.findOneAndUpdate({ email: decode.email}, {
+            isVerified: true
+        })
     }
 
-    if(decode.role === "admin"){
-        const result = await adminModel.findOneAndUpdate({email},{
-            isVerified : true
-        })
-    }
-    if(decode.role === "driver"){
-        const result = await driverModel.findOneAndUpdate({email},{
-            isVerified : true
-        })
-    }
-    if(decode.role === "passenger"){
-        const result = await PassengerModel.findOneAndUpdate({email},{
-            isVerified : true
-        })
-    }
-    
 
     res.send("Your mail is now verified !!")
 })
@@ -81,5 +77,5 @@ const verifyUser = catchAsync(async (req, res)=>{
 
 
 export const authController = {
-    login, verifyEmail,verifyUser
+    login, verifyEmail, verifyUser
 }
