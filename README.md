@@ -26,7 +26,6 @@ Below is a list of API endpoints for your project. Click each link to view the e
     "dateOfBirth": "1990-05-15T00:00:00.000Z",
     "contactNumber": "1234567890",
     "isVerified": false,
-    "role": "passenger",
     "profileImg" : "example/img/link",
     "rideHistory": []
   }
