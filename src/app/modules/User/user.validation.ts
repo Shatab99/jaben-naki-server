@@ -27,10 +27,6 @@ const createDriver = z.object({
             name: z.string().min(1, { message: "Name is required" }),
             dateOfBirth: z.string().min(1, { message: "Date of Birth is required" }),
             contactNumber: z.string().min(10, { message: "Contact number must be at least 10 characters long" }),
-            CurstomerReview: z.array(z.object({
-                Cname: z.string().min(1, { message: "Customer name is required" }),
-                review: z.string().min(1, { message: "Review is required" })
-            })).optional(),
             isActive: z.boolean(),
             profileImg: z.string().url({ message: "Invalid URL for profile image" })
         }),

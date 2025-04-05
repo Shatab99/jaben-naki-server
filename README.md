@@ -24,10 +24,7 @@ Below is a list of API endpoints for your project. Click each link to view the e
   "passenger": {
     "name": "John Doe",
     "dateOfBirth": "1990-05-15T00:00:00.000Z",
-    "contactNumber": "1234567890",
-    "isVerified": false,
-    "profileImg" : "example/img/link",
-    "rideHistory": []
+    "contactNumber": "1234567890"
   }
 }
 
@@ -49,16 +46,6 @@ Below is a list of API endpoints for your project. Click each link to view the e
       "name": "John Doe",
       "dateOfBirth": "1990-05-15",
       "contactNumber": "0123456789",
-      "CurstomerReview": [
-        {
-          "Cname": "Alice Smith",
-          "review": "Very professional and polite driver."
-        },
-        {
-          "Cname": "Bob Johnson",
-          "review": "On time and car was clean."
-        }
-      ],
       "isActive": true,
       "profileImg": "https://example.com/images/driver-profile.jpg"
     },
