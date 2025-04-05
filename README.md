@@ -19,8 +19,7 @@ Below is a list of API endpoints for your project. Click each link to view the e
   "user": {
     "email": "passenger.jane@example.com",
     "userName": "johndoe123",
-    "password": "password123",
-    "role": "passenger"
+    "password": "password123"
   },
   "passenger": {
     "name": "John Doe",
