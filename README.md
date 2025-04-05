@@ -40,23 +40,35 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 ```json 
 {
-  "user": {
-    "email": "driver.jane@example.com",
-    "userName": "janeDriver",
-    "password": "password123",
-    "status": "good"
-  },
-  "driver": {
-    "name": "Jane Doe",
-    "dateOfBirth": "1985-07-22",
-    "contactNumber": "1234567890",
-    "complitedRides": 250,
-    "category": "car",
-    "isActive": true,
-    "profileImg": "https://example.com/profile/jane.jpg",
-    "rideHistory": []
+    "user": {
+      "email": "johndoe@example.com",
+      "userName": "johndoe123",
+      "password": "securePass123"
+    },
+    "driver": {
+      "name": "John Doe",
+      "dateOfBirth": "1990-05-15",
+      "contactNumber": "0123456789",
+      "CurstomerReview": [
+        {
+          "Cname": "Alice Smith",
+          "review": "Very professional and polite driver."
+        },
+        {
+          "Cname": "Bob Johnson",
+          "review": "On time and car was clean."
+        }
+      ],
+      "isActive": true,
+      "profileImg": "https://example.com/images/driver-profile.jpg"
+    },
+    "carDetails": {
+      "carSerialNo": "ABC123456789",
+      "category": "car",
+      "carImg": "https://example.com/images/car.jpg",
+      "carColor": "Blue"
+    }
   }
-}
 
 ```
 
