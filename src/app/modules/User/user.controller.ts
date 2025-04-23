@@ -33,8 +33,8 @@ const createDriver = catchAsync(async (req, res) => {
 
     const userData = await userModel.findOne({ email: user.email })
     const carDetailsData = await carDetailsModel.findOne({ driverEmail: user.email })
-    
-    const driverRes = await driverModel.create({ Did: userData?._id,carDetails : carDetailsData?._id , role: 'driver', email: user?.email,CurstomerReview : [], ...driver })
+
+    const driverRes = await driverModel.create({ Did: userData?._id, carDetails: carDetailsData?._id, role: 'driver', email: user?.email, CurstomerReview: [], ...driver })
 
     resSend(res, 200, "Driver Created Successfully", { driverRes, userRes, carDetailsRes })
 })
@@ -52,8 +52,15 @@ const createAdmin = catchAsync(async (req, res) => {
 })
 
 
+const getMe = catchAsync(async (req, res) => {
+    const { email } = req.user
+    const userData = await userModel.findOne({ email }).select("-password")
+    resSend(res, 200, "User Data", { userData })
+})
+
+
 
 
 export const UserController = {
-    createPassenger, createDriver, createAdmin
+    createPassenger, createDriver, createAdmin, getMe
 }

@@ -9,5 +9,6 @@ const { createPassenger, createDriver, createAdmin } = userValidation
 router.post("/create-passenger", validate(createPassenger), UserController.createPassenger);
 router.post("/create-driver", validate(createDriver), UserController.createDriver);
 router.post("/create-admin", validate(createAdmin), UserController.createAdmin);
+router.get("/me", UserController.getMe);
 
 export const userRouter = router;

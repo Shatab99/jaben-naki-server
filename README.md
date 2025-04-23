@@ -149,12 +149,8 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 ```
 
-### Get Me Passenger
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/passenger/me`](https://jaben-naki-server.vercel.app/api/v1/passenger/me)  
-**Method**: `GET`
-
-### Get Me Driver
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/driver/me`](https://jaben-naki-server.vercel.app/api/v1/driver/me)  
+### Get Me
+**URL**: [`https://jaben-naki-server.vercel.app/api/v1/passenger/me`](https://jaben-naki-server.vercel.app/api/v1/user/me)  
 **Method**: `GET`
 
 ### Get Me Admin
