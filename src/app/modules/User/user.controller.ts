@@ -53,6 +53,7 @@ const createAdmin = catchAsync(async (req, res) => {
 
 
 const getMe = catchAsync(async (req, res) => {
+    // @ts-ignore
     const { email } = req.user
     const userData = await userModel.findOne({ email }).select("-password")
     resSend(res, 200, "User Data", { userData })

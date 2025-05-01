@@ -16,6 +16,7 @@ function getCurrentTime(): string {
 }
 
 const completeRide = catchAsync(async (req, res) => {
+    //@ts-ignore
     const { email } = req.user;
     const startRideId = req.params.id;
 
@@ -81,11 +82,13 @@ const completeRide = catchAsync(async (req, res) => {
 })
 
 const getAllDriverHistory = catchAsync(async (req, res) => {
+    //@ts-ignore
     const {email} = req.user;
     const result = await DriverRideHistoryModel.find({driverEmail : email})
     resSend(res,200, "All History Received ", result)
 })
 const getAllPassengerHistory = catchAsync(async (req, res) => {
+    //@ts-ignore
     const {email} = req.user;
     const result = await PassengerRideHistoryModel.find({passengerEmail : email})
     resSend(res,200, "All History Received ", result)

@@ -5,6 +5,7 @@ import { PassengerModel } from "../passenger/passenger.model";
 import { adminModel } from "./Admin.model";
 
 const getMe = catchAsync(async (req, res)=>{
+    // @ts-ignore
     const {email}= req.user;
     const result = await adminModel.findOne({email});
     resSend(res,200,"Admin Retrived Successfully", result);

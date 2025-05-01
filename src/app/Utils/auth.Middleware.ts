@@ -29,7 +29,7 @@ const auth = (...roles: TUserRole[]) => {
         if(roles && !roles.includes(role)){
             throw new Error("You are not authorized !!")
         }
-        
+        // @ts-ignore
         req.user = decode as JwtPayload;
         
         next()

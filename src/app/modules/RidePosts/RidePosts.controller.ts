@@ -18,6 +18,7 @@ const getAllRidePost = catchAsync(async (req, res) => {
 
 
 const postARide = catchAsync(async (req, res) => {
+    // @ts-ignore
     const { email } = req.user;
     const body = req.body
     const pending = await userModel.isUserPending(email);

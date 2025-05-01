@@ -4,6 +4,7 @@ import { userModel } from "../User/user.model";
 import { driverModel } from "./driver.model";
 
 const getMe = catchAsync(async (req, res) => {
+    // @ts-ignore
     const {email}= req.user;
     const user = await userModel.isUserExists(email)
 

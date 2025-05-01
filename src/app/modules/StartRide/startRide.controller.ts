@@ -5,6 +5,7 @@ import { ridePostsModel } from "../RidePosts/RidePosts.model";
 import { StartRideModel } from "./startRide.model";
 
 const createStartRide = catchAsync(async (req, res) => {
+    // @ts-ignore
     const {email} = req.user;
     const ridePostId = req.params.id;
     const ridePost = await ridePostsModel.findById(ridePostId);

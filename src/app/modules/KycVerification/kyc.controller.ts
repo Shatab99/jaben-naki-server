@@ -6,6 +6,7 @@ import { userModel } from "../User/user.model";
 import { kycModel } from "./kyc.model";
 
 const appealKyc = catchAsync(async (req, res) => {
+    // @ts-ignore
     const { email } = req.user;
     const data = req.body;
     const info = await carDetailsModel.findOne({ driverEmail: email })

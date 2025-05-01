@@ -40,6 +40,7 @@ const login = catchAsync(async (req, res) => {
 })
 
 const verifyEmail = catchAsync(async (req, res) => {
+    // @ts-ignore
     const { email, role } = req.user;
     const verifyToken = createToken({ email, role }, '10m')
 

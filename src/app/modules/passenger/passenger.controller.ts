@@ -3,6 +3,7 @@ import catchAsync from "../../Utils/catchAsync";
 import { PassengerModel } from "./passenger.model";
 
 const getMe = catchAsync(async (req, res) => {
+    // @ts-ignore
     const { email } = req.user;
 
     const passenger = await PassengerModel.findOne({ email })
