@@ -11,10 +11,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({
-    origin: 'http://localhost:5173', // replace with your frontend URL
-    credentials: true // allows cookies to be sent from frontend
-  }))
+app.use(cors())
 
 //rate limiter middleware
 app.use(limiter(1,2))
