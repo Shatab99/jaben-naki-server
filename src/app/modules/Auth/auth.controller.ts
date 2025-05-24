@@ -36,7 +36,7 @@ const login = catchAsync(async (req, res) => {
         httpOnly: true
     })
 
-    resSend(res, 200, "Successfully logged in", { token })
+    resSend(res, 200, "Successfully logged in", { token, user })
 })
 
 const verifyEmail = catchAsync(async (req, res) => {
