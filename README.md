@@ -9,8 +9,16 @@
 
 Below is a list of API endpoints for your project. Click each link to view the endpoint or copy it manually.
 
+### Base Url 
+
+```
+http://localhost:5000/api/v1
+```
+
 ### Create-Passenger
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/user/create-passenger`](https://jaben-naki-server.vercel.app/api/v1/user/create-passenger)  
+```
+/user/create-passenger
+```
 **Method**: `POST`
 
 ```json 
@@ -32,9 +40,11 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 
 ### Create-Driver
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/user/create-driver`](https://jaben-naki-server.vercel.app/api/v1/user/create-driver)  
-**Method**: `POST`
 
+```
+/user/create-driver
+```
+**Method**: `POST`
 ```json 
 {
     "user": {
@@ -62,7 +72,10 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 
 ### Create-Admin
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/user/create-admin`](https://jaben-naki-server.vercel.app/api/v1/user/create-admin)  
+```
+/user/create-admin
+```
+
 **Method**: `POST`
 
 ```json 
@@ -88,7 +101,9 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 
 ### Post a Ride by Driver
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/ridePosts/post-ride`](https://jaben-naki-server.vercel.app/api/v1/ridePosts/post-ride)  
+```
+/ridePosts/post-ride
+```
 **Method**: `POST`
 
 
@@ -108,7 +123,9 @@ Below is a list of API endpoints for your project. Click each link to view the e
 ```
 
 ### Login
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/auth/login`](https://jaben-naki-server.vercel.app/api/v1/auth/login)  
+```
+/auth/login
+```
 **Method**: `POST`
 
 ```json
@@ -121,7 +138,9 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 
 ### Appeal for KYC
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/kyc/for-appeal`](https://jaben-naki-server.vercel.app/api/v1/kyc/for-appeal)  
+```
+/kyc/for-appeal
+```
 **Method**: `POST`
 
 ```json 
@@ -138,7 +157,9 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 
 ### Confirm Appeal (Admin Only)
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/kyc/confirm-appeal`](https://jaben-naki-server.vercel.app/api/v1/kyc/confirm-appeal)  
+```
+/kyc/confirm-appeal
+```
 **Method**: `PATCH`
 
 ```json 
@@ -149,28 +170,40 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 ```
 
-### Get Me
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/passenger/me`](https://jaben-naki-server.vercel.app/api/v1/user/me)  
+### Get Me passenger and driver
+```
+/user/me
+```
 **Method**: `GET`
 
 ### Get Me Admin
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/admin/me`](https://jaben-naki-server.vercel.app/api/v1/admin/me)  
+```
+/admin/me
+```
 **Method**: `GET`
 
 ### Cancel / Remove Ride Post
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/ridePosts/cancel-ride/{rideId}`](https://jaben-naki-server.vercel.app/api/v1/ridePosts/cancel-ride/671b3cbf6a71664d7498a57b)  
+```
+ridePosts/cancel-ride/:id
+```
 **Method**: `DELETE`
 
 ### Get All Ride Posts (Email Query Included)
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/ridePosts/get-all-rideposts?email={email}`](https://jaben-naki-server.vercel.app/api/v1/ridePosts/get-all-rideposts?email=driver.jane@example.com)  
+```
+/api/v1/ridePosts/get-all-rideposts?email=driver.jane@example.com
+```  
 **Method**: `GET`
 
 ### Get All Appeals (Admin)
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/kyc/get-all-appeals`](https://jaben-naki-server.vercel.app/api/v1/kyc/get-all-appeals)  
+```
+/kyc/get-all-appeals
+```
 **Method**: `GET`
 
 ### Book A Ride (Passenger) :Id will be ridePosts _id
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/:id)  
+```
+/book-ride/:id
+```
 **Method**: `POST`
 
 ```json 
@@ -182,7 +215,9 @@ Below is a list of API endpoints for your project. Click each link to view the e
 ```
 
 ### Edit Seat (Passenger) :Id will be bookRides  _id
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/edit-seat/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/edit-seat/:id)  
+```
+/book-ride/edit-seat/:id
+``` 
 **Method**: `PATCH`
 
 ```json 
@@ -193,28 +228,40 @@ Below is a list of API endpoints for your project. Click each link to view the e
 
 ```
 
-### Cancel Ride (Passenger) :Id will be bookRides  _id  
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/book-ride/cancel/:id`](https://jaben-naki-server.vercel.app/api/v1/book-ride/cancel/:id)  
+### Cancel Ride (Passenger) :Id will be bookRides  _id  ```
+```
+/book-ride/cancel/:id
+``` 
 **Method**: `DELETE`
 
 ### When click or press Start Ride Button In his ride post (Driver)
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/startRide/started-ride/:ridePostId`]()  
+```
+/startRide/started-ride/:ridePostId
+```
 **Method**: `POST`
 
 ### When click or press Complete Ride Button In his start ride section (Driver) 
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/complete-the-ride/:startRideId`]()  
+```
+/completeRide/complete-the-ride/:startRideId
+```
 **Method**: `POST`
 
 ### Show all driver ride history (Driver) 
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/driver-history`]()  
+```
+/completeRide/driver-history
+```
 **Method**: `GET`
 
 ### Show all passenger ride history (Passenger) 
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/completeRide/passenger-history`]()  
+```
+/completeRide/passenger-history
+```
 **Method**: `GET`
 
 ### verify Email 
-**URL**: [`https://jaben-naki-server.vercel.app/api/v1/auth/verifyMail`]()  
+```
+/auth/verifyMail
+```
 **Method**: `POST`
 
 ---
