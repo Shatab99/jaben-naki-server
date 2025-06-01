@@ -6,6 +6,7 @@ import { ridePostsModel } from "./RidePosts.model";
 
 const getAllRidePost = catchAsync(async (req, res) => {
     const email = req.query.email;
+
     if (email) {
         const result = await ridePostsModel.find({ driverEmail: email })
         resSend(res, 200, "All Ride Posts retrived Successfully Filtered By email", result)
@@ -17,8 +18,6 @@ const getAllRidePost = catchAsync(async (req, res) => {
 })
 
 const getAllRidesForPassenger = catchAsync(async (req, res) => {
-  // @ts-ignore
-  const email = req.user;
   const { from, to, date, seat } = req.query;
 
   const query: any = {};

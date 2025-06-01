@@ -8,7 +8,7 @@ import { bookRideValidation } from "./BookRide.validation";
 const router = Router()
 const {bookRide, editSeat} = bookRideValidation
 
-router.post("/:id", auth(UserRole.passenger),validate(bookRide) , RideController.bookRide)
+router.post("/book/:id", auth(UserRole.passenger),validate(bookRide) , RideController.bookRide)
 router.get("/my-rides", auth(UserRole.passenger), RideController.getMyBookedRides)
 
 router.get("/get-ride/:id", RideController.getBookingDetails)

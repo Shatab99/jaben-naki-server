@@ -8,8 +8,8 @@ import { bookRideModel } from "./BookRide.model";
 const bookRide = catchAsync(async (req, res) => {
     //@ts-ignore
     const { email } = req.user;
-    const id = req.params.id;
-    const { numberOfSeats } = req.body;
+    // const id = req.params.id;
+    const { numberOfSeats, id } = req.body;
     const ridePost = await ridePostsModel.findById(id).lean()
 
     if (Number(ridePost?.vacantSeats) < numberOfSeats) {
