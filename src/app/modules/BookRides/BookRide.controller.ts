@@ -30,7 +30,9 @@ const bookRide = catchAsync(async (req, res) => {
 
     const result = await bookRideModel.create({
         ridePostId: ridePost?._id,
-        passengerEmail: passengerData?.email, passengerName: passengerData?.name, numberOfSeats,
+        passengerEmail: passengerData?.email, 
+        passengerName: passengerData?.name, 
+        numberOfSeats : Number(numberOfSeats),
         driverEmail: ridePost?.driverEmail,
         driverName: ridePost?.driverName,
         from: ridePost?.from,
