@@ -8,40 +8,39 @@ import { bookRideModel } from "./BookRide.model";
 const bookRide = catchAsync(async (req, res) => {
     //@ts-ignore
     const { email } = req.user;
-    // const id = req.params.id;
-    const { numberOfSeats, id } = req.body;
+    const id = req.params.id;
+    const { numberOfSeats } = req.body;
     const ridePost = await ridePostsModel.findById(id).lean()
 
-    if (Number(ridePost?.vacantSeats) < numberOfSeats) {
-        throw new Error("No seat available !")
-    }
+    if (!ridePost) throw new Error("Ride Post not found!");
 
-    if (Number(ridePost?.vacantSeats) <= 0) {
-        throw new Error("No seat available !")
-    }
+    if (Number(ridePost?.vacantSeats) < numberOfSeats) throw new Error("No seat available !")
 
-    const isBookExists = await bookRideModel.findOne({ passengerEmail: email })
 
-    if (isBookExists) {
-        throw new Error("You have already booked!!")
-    }
+    if (Number(ridePost?.vacantSeats) <= 0) throw new Error("No seat available !");
 
-    const passengerData = await PassengerModel.findOne({ email })
+    const isBookExists = await bookRideModel.findOne({ passengerEmail: email });
+
+    if (isBookExists) throw new Error("You have already booked!!");
+
+    const passengerData = await PassengerModel.findOne({ email });
+
+    if (!passengerData) throw new Error("Passenger not found!");
 
     const result = await bookRideModel.create({
-        ridePostId: ridePost?._id,
-        passengerEmail: passengerData?.email, 
-        passengerName: passengerData?.name, 
-        numberOfSeats : Number(numberOfSeats),
-        driverEmail: ridePost?.driverEmail,
-        driverName: ridePost?.driverName,
-        from: ridePost?.from,
-        to: ridePost?.to,
-        fare: Number(ridePost?.fare) * Number(numberOfSeats),
-        journeyStartTime: ridePost?.journeyStartTime,
-        journeyDate: ridePost?.journeyDate,
+        ridePostId: ridePost._id,
+        passengerEmail: passengerData.email,
+        passengerName: passengerData.name,
+        numberOfSeats: Number(numberOfSeats),
+        driverEmail: ridePost.driverEmail,
+        driverName: ridePost.driverName,
+        from: ridePost.from,
+        to: ridePost.to,
+        fare: Number(ridePost.fare) * Number(numberOfSeats),
+        journeyStartTime: ridePost.journeyStartTime,
+        journeyDate: ridePost.journeyDate,
         status: "notPicked",
-        type: ridePost?.type,
+        type: ridePost.type,
         isPaid: false
     })
 
@@ -61,7 +60,7 @@ const getMyBookedRides = catchAsync(async (req, res) => {
     //@ts-ignore
     const { email } = req.user;
 
-    const bookedRides = await bookRideModel.find({ passengerEmail: email}).populate("ridePostId").lean();
+    const bookedRides = await bookRideModel.find({ passengerEmail: email }).populate("ridePostId").lean();
 
     if (bookedRides.length === 0) {
         return resSend(res, 404, "No booked rides found!", []);
