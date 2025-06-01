@@ -28,9 +28,6 @@ const bookRide = catchAsync(async (req, res) => {
 
     const passengerData = await PassengerModel.findOne({ email })
 
-
-
-
     const result = await bookRideModel.create({
         ridePostId: ridePost?._id,
         passengerEmail: passengerData?.email, passengerName: passengerData?.name, numberOfSeats,
@@ -56,6 +53,19 @@ const bookRide = catchAsync(async (req, res) => {
 
 
     resSend(res, 200, "Ride Placed Successfully !", { result, updateRidePost })
+})
+
+const getMyBookedRides = catchAsync(async (req, res) => {
+    //@ts-ignore
+    const { email } = req.user;
+
+    const bookedRides = await bookRideModel.find({ passengerEmail: email}).populate("ridePostId").lean();
+
+    if (bookedRides.length === 0) {
+        return resSend(res, 404, "No booked rides found!", []);
+    }
+
+    resSend(res, 200, "All booked rides retrieved successfully", bookedRides);
 })
 
 const editSeat = catchAsync(async (req, res) => {
@@ -104,7 +114,16 @@ const cancelRide = catchAsync(async (req, res) => {
     resSend(res, 200, "Ride canceled Successfully", { updateRidePost, cancelResult })
 })
 
+const getBookingDetails = catchAsync(async (req, res) => {
+    const id = req.params.id;
+
+    const bookingDetails = await bookRideModel.findById(id).populate("ridePostId").lean();
+
+    if (!bookingDetails) throw new Error("Booking not found!");
+
+    resSend(res, 200, "Booking details retrieved successfully", bookingDetails);
+})
 
 export const RideController = {
-    bookRide, editSeat, cancelRide
+    bookRide, editSeat, cancelRide, getMyBookedRides, getBookingDetails
 }

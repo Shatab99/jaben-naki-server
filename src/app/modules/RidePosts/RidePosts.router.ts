@@ -10,6 +10,7 @@ const { createRidePosts, updateRidePosts } = ridePostsValidation
 
 
 router.get("/get-all-rideposts", ridePostsController.getAllRidePost)
+router.get("/get-all-rides-for-passenger", ridePostsController.getAllRidesForPassenger)
 
 router.post("/post-ride", auth(UserRole.driver), validate(createRidePosts), ridePostsController.postARide)
 

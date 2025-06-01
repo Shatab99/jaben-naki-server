@@ -16,16 +16,52 @@ const getAllRidePost = catchAsync(async (req, res) => {
     }
 })
 
+const getAllRidesForPassenger = catchAsync(async (req, res) => {
+  // @ts-ignore
+  const email = req.user;
+  const { from, to, date, seat } = req.query;
+
+  const query: any = {};
+
+  // Case-insensitive exact matches for strings
+  if (from) {
+    query.from = { $regex: new RegExp(`^${from}$`, "i") };
+  }
+  if (to) {
+    query.to = { $regex: new RegExp(`^${to}$`, "i") };
+  }
+  if (date) {
+    query.journeyDate = { $regex: new RegExp(`^${date}$`, "i") };
+  }
+  if (seat) {
+    const seatCount = parseInt(seat as string, 10);
+    if (!isNaN(seatCount)) {
+      query.vacantSeats = { $gte: seatCount };
+    }
+  }
+
+  const result = await ridePostsModel.find(query);
+
+  if (result.length === 0) {
+    return resSend(res, 404, "No rides found!", []);
+  }
+
+  resSend(res, 200, "All rides retrieved successfully", result);
+});
+
+
+
+
 
 const postARide = catchAsync(async (req, res) => {
     // @ts-ignore
     const { email } = req.user;
     const body = req.body
-    const pending = await userModel.isUserPending(email);
+    // const pending = await userModel.isUserPending(email);
 
-    if (pending) {
-        throw new Error("This account is pending .Please appeal for KYC varification!")
-    }
+    // if (pending) {
+    //     throw new Error("This account is pending .Please appeal for KYC varification!")
+    // }
 
     const driver = await driverModel.findOne({ email })
     const result = await ridePostsModel.create({
@@ -51,5 +87,5 @@ const cancelRidePost = catchAsync(async (req, res) => {
 
 
 export const ridePostsController = {
-    postARide, updateRidePosts, cancelRidePost,getAllRidePost
+    postARide, updateRidePosts, cancelRidePost,getAllRidePost,getAllRidesForPassenger
 }
