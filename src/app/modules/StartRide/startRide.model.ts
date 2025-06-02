@@ -5,7 +5,7 @@ import { TStartRide } from "./startRide.interface";
 const startRideSchema = new Schema<TStartRide>({
     driverName: { type: String, required: true },
     driverEmail: { type: String, required: true },
-    bookingIds: [{ type: String, required: true }], // Array of strings
+    passengerBooked: [{ type: String, required: true }], // Array of strings
     totalFare: { type: Number, required: true },
     from: { type: String, required: true },
     to: { type: String, required: true },

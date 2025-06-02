@@ -18,66 +18,62 @@ function getCurrentTime(): string {
 const completeRide = catchAsync(async (req, res) => {
     //@ts-ignore
     const { email } = req.user;
-    const startRideId = req.params.id;
+    // const startRideId = req.params.id;
 
-    const startRideData = await StartRideModel.findById(startRideId);
+    // const startRideData = await StartRideModel.findById(startRideId);
 
-    if (email !== startRideData?.driverEmail) {
-        throw new Error("You are not allowed to complete the ride !")
-    }
+    // if (email !== startRideData?.driverEmail) {
+    //     throw new Error("You are not allowed to complete the ride !")
+    // }
 
-    const bookRides = await bookRideModel.find({
-        _id: { $in: startRideData?.bookingIds }
-    })
+    // const passengers = bookRides.map(bookRide => {
+    //     return {
+    //         name: bookRide.passengerName,
+    //         email: bookRide.passengerEmail,
+    //     }
+    // })
 
-    const passengers = bookRides.map(bookRide => {
-        return {
-            name: bookRide.passengerName,
-            email: bookRide.passengerEmail,
-        }
-    })
+    // //driver Section
 
-    //driver Section
+    // const driverRideHistory = await DriverRideHistoryModel.create({
+    //     driverEmail: startRideData?.driverEmail,
+    //     from: startRideData?.from,
+    //     to: startRideData?.to,
+    //     type: startRideData?.type,
+    //     totalFare: startRideData?.totalFare,
+    //     reachedTime: getCurrentTime(),
+    //     passengers
+    // })
 
-    const driverRideHistory = await DriverRideHistoryModel.create({
-        driverEmail: startRideData?.driverEmail,
-        from: startRideData?.from,
-        to: startRideData?.to,
-        type: startRideData?.type,
-        totalFare: startRideData?.totalFare,
-        reachedTime: getCurrentTime(),
-        passengers
-    })
+    // const driverAcc = await driverModel.findOne({ email: startRideData?.driverEmail })
 
-    const driverAcc = await driverModel.findOne({ email: startRideData?.driverEmail })
-
-    const driverAccUpdate = await driverModel.findOneAndUpdate({ email: startRideData?.driverEmail }, {
-        credit: Number(driverAcc?.credit) + Number(startRideData?.totalFare),
-        complitedRides: Number(driverAcc?.complitedRides) + 1,
-    })
+    // const driverAccUpdate = await driverModel.findOneAndUpdate({ email: startRideData?.driverEmail }, {
+    //     credit: Number(driverAcc?.credit) + Number(startRideData?.totalFare),
+    //     complitedRides: Number(driverAcc?.complitedRides) + 1,
+    // })
 
 
-    //passenger Section
+    // //passenger Section
 
-    const passengerHistories = bookRides.map(bookRide => {
-        return {
-            driverName: bookRide?.driverName,
-            passengerEmail: bookRide?.passengerEmail,
-            driverEmail: bookRide?.driverEmail,
-            from: bookRide?.from,
-            to: bookRide?.to,
-            type: bookRide?.type,
-            fare: bookRide?.fare,
-            numberOfSeats: bookRide?.numberOfSeats,
-            reachedTime: getCurrentTime(),
-        }
-    })
-
-
-    const savePassengerHistories = await PassengerRideHistoryModel.insertMany(passengerHistories);
+    // const passengerHistories = bookRides.map(bookRide => {
+    //     return {
+    //         driverName: bookRide?.driverName,
+    //         passengerEmail: bookRide?.passengerEmail,
+    //         driverEmail: bookRide?.driverEmail,
+    //         from: bookRide?.from,
+    //         to: bookRide?.to,
+    //         type: bookRide?.type,
+    //         fare: bookRide?.fare,
+    //         numberOfSeats: bookRide?.numberOfSeats,
+    //         reachedTime: getCurrentTime(),
+    //     }
+    // })
 
 
-    resSend(res, 200, "Ride Completed Successfully !", { driverRideHistory, savePassengerHistories, driverAccUpdate })
+    // const savePassengerHistories = await PassengerRideHistoryModel.insertMany(passengerHistories);
+
+
+    resSend(res, 200, "Ride Completed Successfully !", {  })
 
 })
 

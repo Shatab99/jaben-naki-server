@@ -6,6 +6,8 @@ export interface TUser {
     password : string
     role : "passenger" | "driver" | 'admin'
     status : "warned" | "blocked" | "good" | "pending"
+    isRiding : boolean
+    startRideId? : string
 }
 
 export interface User extends Model<TUser> { 

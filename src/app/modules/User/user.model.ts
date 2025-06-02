@@ -15,7 +15,9 @@ const userSchema = new Schema<TUser, User>({
     type: String,
     enum: ["warned", "blocked", "good", "pending"],
     default : "good"
-  }
+  },
+  isRiding: { type: Boolean, default: false },
+  startRideId: { type: String, default: null }
 }, { timestamps: true });
 
 

@@ -7,5 +7,7 @@ const router = Router()
 
 router.post("/started-ride/:id", auth(UserRole.driver), startRideController.createStartRide)
 
+router.get("/started-ride/:id",  startRideController.getRideStarted)
+
 
 export const startRideRouter = router

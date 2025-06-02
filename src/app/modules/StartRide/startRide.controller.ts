@@ -2,23 +2,32 @@ import resSend from "../../GlobalHandelers/resSend.handler";
 import catchAsync from "../../Utils/catchAsync";
 import { bookRideModel } from "../BookRides/BookRide.model";
 import { ridePostsModel } from "../RidePosts/RidePosts.model";
+import { userModel } from "../User/user.model";
 import { StartRideModel } from "./startRide.model";
 
 const createStartRide = catchAsync(async (req, res) => {
     // @ts-ignore
-    const {email} = req.user;
+    const { email } = req.user;
     const ridePostId = req.params.id;
     const ridePost = await ridePostsModel.findById(ridePostId);
 
-    if(email !== ridePost?.driverEmail){
-        throw new Error("You can not start Other driver's ride")
-    }
+    if (!ridePost) throw new Error("Ride post not found");
+
+    if (email !== ridePost?.driverEmail) throw new Error("You can not start Other driver's ride")
+
+    const books = await bookRideModel.find(
+        { _id: { $in: ridePost.bookingIds } }
+    );
+
+    if (!books) throw new Error("No passengers found for this ride post");
+
+    const passengerEmails = books.map(book => book.passengerEmail);
 
 
     const insertInStartRide = await StartRideModel.create({
         driverName: ridePost?.driverName,
         driverEmail: ridePost?.driverEmail,
-        passengerBooked: ridePost?.bookingIds,
+        passengerBooked: passengerEmails,
         totalFare: Number(ridePost?.fare) * (Number(ridePost?.totalSeats) - Number(ridePost?.vacantSeats)),
         from: ridePost?.from,
         to: ridePost?.to,
@@ -26,21 +35,38 @@ const createStartRide = catchAsync(async (req, res) => {
         type: ridePost?.type
     })
 
+    //update driver's ride post status
+    await userModel.findOneAndUpdate({ email }, { $set: { isRiding: true, startRideId: insertInStartRide._id } });
+
+    // update passenger's isRiding status
+    await userModel.updateMany(
+        { email: { $in: passengerEmails } },
+        { $set: { isRiding: true, startRideId: insertInStartRide._id } }
+    );
+
     // update status of passenger
+    await bookRideModel.deleteMany(
+        { _id: { $in: ridePost?.bookingIds } }
+    );
+    //delete Ride post
+    await ridePostsModel.findByIdAndDelete(ridePostId);
 
-    const updateStatusOfAllPassengers = await bookRideModel.updateMany(
-        { _id: { $in: ridePost?.bookingIds } },
-        { $set: { status: "startedRide" } }
-    )
-    //delete Ride post 
+    resSend(res, 200, "You have Started Ride . FiAmanillah for your journey ☺", { startRideId: insertInStartRide._id })
+})
 
-    const deleteRidePost = await ridePostsModel.findByIdAndDelete(ridePostId);
 
-    resSend(res, 200, "You have Started Ride . FiAmanillah for your journey ☺", { insertInStartRide, updateStatusOfAllPassengers,deleteRidePost })
-
+const getRideStarted = catchAsync(async (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    const startedRides = await StartRideModel.findById(id);
+    if (!startedRides) {
+        throw new Error("You have not started any ride yet")
+    }
+    resSend(res, 200, "Started Rides fetched successfully",  startedRides )
 })
 
 
 export const startRideController = {
-    createStartRide
+    createStartRide,
+    getRideStarted
 }
