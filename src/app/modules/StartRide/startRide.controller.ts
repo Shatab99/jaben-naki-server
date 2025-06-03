@@ -21,13 +21,17 @@ const createStartRide = catchAsync(async (req, res) => {
 
     if (!books) throw new Error("No passengers found for this ride post");
 
-    const passengerEmails = books.map(book => book.passengerEmail);
+    const passengerBooked = books.map(book => ({
+        email: book.passengerEmail,
+        totalFare: book.fare,
+        numberOfSeats: book.numberOfSeats
+    }));
 
 
     const insertInStartRide = await StartRideModel.create({
         driverName: ridePost?.driverName,
         driverEmail: ridePost?.driverEmail,
-        passengerBooked: passengerEmails,
+        passengerBooked,
         totalFare: Number(ridePost?.fare) * (Number(ridePost?.totalSeats) - Number(ridePost?.vacantSeats)),
         from: ridePost?.from,
         to: ridePost?.to,
@@ -40,7 +44,7 @@ const createStartRide = catchAsync(async (req, res) => {
 
     // update passenger's isRiding status
     await userModel.updateMany(
-        { email: { $in: passengerEmails } },
+        { email: { $in: passengerBooked.map(p => p.email) } },
         { $set: { isRiding: true, startRideId: insertInStartRide._id } }
     );
 
@@ -57,7 +61,6 @@ const createStartRide = catchAsync(async (req, res) => {
 
 const getRideStarted = catchAsync(async (req, res) => {
     const id = req.params.id;
-    console.log(id)
     const startedRides = await StartRideModel.findById(id);
     if (!startedRides) {
         throw new Error("You have not started any ride yet")

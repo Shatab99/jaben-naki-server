@@ -1,11 +1,18 @@
 import { Schema, model } from "mongoose";
-import { TStartRide } from "./startRide.interface";
+import { TPassengerBooked, TStartRide } from "./startRide.interface";
+
+
+const passengerBookedSchema = new Schema<TPassengerBooked>({
+    email: { type: String, required: true },
+    totalFare: { type: Number, required: true },
+    numberOfSeats: { type: Number, required: true }
+}, { _id: false }); // Disable automatic _id generation for this subdocument schema
 
 // Define the Mongoose schema
 const startRideSchema = new Schema<TStartRide>({
     driverName: { type: String, required: true },
     driverEmail: { type: String, required: true },
-    passengerBooked: [{ type: String, required: true }], // Array of strings
+    passengerBooked: [passengerBookedSchema], // Use the subdocument schema
     totalFare: { type: Number, required: true },
     from: { type: String, required: true },
     to: { type: String, required: true },

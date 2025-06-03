@@ -1,7 +1,7 @@
 import resSend from "../../GlobalHandelers/resSend.handler";
 import catchAsync from "../../Utils/catchAsync";
-import { bookRideModel } from "../BookRides/BookRide.model";
 import { driverModel } from "../driver/driver.model";
+import { PassengerModel } from "../passenger/passenger.model";
 import { StartRideModel } from "../StartRide/startRide.model";
 import { DriverRideHistoryModel } from "./driver.rideHistory.model";
 import { PassengerRideHistoryModel } from "./passenger.rideHistory.model";
@@ -18,76 +18,81 @@ function getCurrentTime(): string {
 const completeRide = catchAsync(async (req, res) => {
     //@ts-ignore
     const { email } = req.user;
-    // const startRideId = req.params.id;
+    const startRideId = req.params.id;
 
-    // const startRideData = await StartRideModel.findById(startRideId);
+    const startRideData = await StartRideModel.findById(startRideId);
 
-    // if (email !== startRideData?.driverEmail) {
-    //     throw new Error("You are not allowed to complete the ride !")
-    // }
+    if (!startRideData) throw new Error("Start ride data not found");
 
-    // const passengers = bookRides.map(bookRide => {
-    //     return {
-    //         name: bookRide.passengerName,
-    //         email: bookRide.passengerEmail,
-    //     }
-    // })
+    if (email !== startRideData?.driverEmail) {
+        throw new Error("You are not allowed to complete the ride !")
+    }
 
-    // //driver Section
+    const passengers = startRideData?.passengerBooked.map(p => {
+        return {
+            email: p.email,
+            totalFare: p.totalFare,
+            numberOfSeats: p.numberOfSeats
+        };
+    });
 
-    // const driverRideHistory = await DriverRideHistoryModel.create({
-    //     driverEmail: startRideData?.driverEmail,
-    //     from: startRideData?.from,
-    //     to: startRideData?.to,
-    //     type: startRideData?.type,
-    //     totalFare: startRideData?.totalFare,
-    //     reachedTime: getCurrentTime(),
-    //     passengers
-    // })
+    if (!passengers) throw new Error("No passengers found for this ride");
 
-    // const driverAcc = await driverModel.findOne({ email: startRideData?.driverEmail })
+    //driver Section
+    await DriverRideHistoryModel.create({
+        driverEmail: startRideData?.driverEmail,
+        from: startRideData?.from,
+        to: startRideData?.to,
+        type: startRideData?.type,
+        totalFare: startRideData?.totalFare,
+        reachedTime: getCurrentTime(),
+        passengers
+    })
 
-    // const driverAccUpdate = await driverModel.findOneAndUpdate({ email: startRideData?.driverEmail }, {
-    //     credit: Number(driverAcc?.credit) + Number(startRideData?.totalFare),
-    //     complitedRides: Number(driverAcc?.complitedRides) + 1,
-    // })
+    const driverAcc = await driverModel.findOne({ email: startRideData?.driverEmail })
 
-
-    // //passenger Section
-
-    // const passengerHistories = bookRides.map(bookRide => {
-    //     return {
-    //         driverName: bookRide?.driverName,
-    //         passengerEmail: bookRide?.passengerEmail,
-    //         driverEmail: bookRide?.driverEmail,
-    //         from: bookRide?.from,
-    //         to: bookRide?.to,
-    //         type: bookRide?.type,
-    //         fare: bookRide?.fare,
-    //         numberOfSeats: bookRide?.numberOfSeats,
-    //         reachedTime: getCurrentTime(),
-    //     }
-    // })
+    await driverModel.findOneAndUpdate({ email: startRideData?.driverEmail }, {
+        credit: Number(driverAcc?.credit) + Number(startRideData?.totalFare),
+        complitedRides: Number(driverAcc?.complitedRides) + 1,
+    })
 
 
-    // const savePassengerHistories = await PassengerRideHistoryModel.insertMany(passengerHistories);
+    const passengerHistories = passengers.map(passenger => ({
+        driverName: startRideData?.driverName,
+        passengerEmail: passenger.email,
+        driverEmail: startRideData?.driverEmail,
+        from: startRideData?.from,
+        to: startRideData?.to,
+        type: startRideData?.type,
+        fare: passenger.totalFare,
+        numberOfSeats: passenger.numberOfSeats,
+        reachedTime: getCurrentTime()
+    }));
 
+    await PassengerRideHistoryModel.insertMany(passengerHistories);
 
-    resSend(res, 200, "Ride Completed Successfully !", {  })
+    //upadate driver and passenger status
+    await driverModel.findOneAndUpdate({ email }, { $set: { isRiding: false, startRideId: null } });
+    await PassengerModel.updateMany(
+        { email: { $in: passengers.map(p => p.email) } },
+        { $set: { isRiding: false, startRideId: null } }
+    );
+
+    resSend(res, 200, "Ride Completed Successfully !", {})
 
 })
 
 const getAllDriverHistory = catchAsync(async (req, res) => {
     //@ts-ignore
-    const {email} = req.user;
-    const result = await DriverRideHistoryModel.find({driverEmail : email})
-    resSend(res,200, "All History Received ", result)
+    const { email } = req.user;
+    const result = await DriverRideHistoryModel.find({ driverEmail: email })
+    resSend(res, 200, "All History Received ", result)
 })
 const getAllPassengerHistory = catchAsync(async (req, res) => {
     //@ts-ignore
-    const {email} = req.user;
-    const result = await PassengerRideHistoryModel.find({passengerEmail : email})
-    resSend(res,200, "All History Received ", result)
+    const { email } = req.user;
+    const result = await PassengerRideHistoryModel.find({ passengerEmail: email })
+    resSend(res, 200, "All History Received ", result)
 })
 
 
