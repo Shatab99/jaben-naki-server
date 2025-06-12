@@ -15,4 +15,5 @@ export type TBookRide = {
     status : "notPicked" | "startedRide" | "reached"
     type : "ride" | "parcel"
     isPaid : boolean
+    passengerPhone: string;
 }

@@ -1,8 +1,9 @@
+import { io } from "../../../server";
 import resSend from "../../GlobalHandelers/resSend.handler";
 import catchAsync from "../../Utils/catchAsync";
 import { driverModel } from "../driver/driver.model";
-import { PassengerModel } from "../passenger/passenger.model";
 import { StartRideModel } from "../StartRide/startRide.model";
+import { userModel } from "../User/user.model";
 import { DriverRideHistoryModel } from "./driver.rideHistory.model";
 import { PassengerRideHistoryModel } from "./passenger.rideHistory.model";
 
@@ -72,11 +73,17 @@ const completeRide = catchAsync(async (req, res) => {
     await PassengerRideHistoryModel.insertMany(passengerHistories);
 
     //upadate driver and passenger status
-    await driverModel.findOneAndUpdate({ email }, { $set: { isRiding: false, startRideId: null } });
-    await PassengerModel.updateMany(
+    await userModel.findOneAndUpdate({ email }, { $set: { isRiding: false, startRideId: null } });
+    await userModel.updateMany(
         { email: { $in: passengers.map(p => p.email) } },
         { $set: { isRiding: false, startRideId: null } }
     );
+
+    //send notification to passengers
+    const passengerEmails = passengers.map(p => p.email);
+    passengerEmails.forEach(email => {
+        io.to(email).emit("ride-completed", { driverEmail: startRideData?.driverEmail });
+    });
 
     resSend(res, 200, "Ride Completed Successfully !", {})
 

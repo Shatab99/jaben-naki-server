@@ -1,3 +1,4 @@
+import { io } from "../../../server";
 import resSend from "../../GlobalHandelers/resSend.handler";
 import catchAsync from "../../Utils/catchAsync";
 import { PassengerModel } from "../passenger/passenger.model";
@@ -41,16 +42,20 @@ const bookRide = catchAsync(async (req, res) => {
         journeyDate: ridePost.journeyDate,
         status: "notPicked",
         type: ridePost.type,
-        isPaid: false
+        isPaid: false,
+        passengerPhone: passengerData.contactNumber
     })
 
     const afterBook = await bookRideModel.findOne({ passengerEmail: email })
-
 
     const updateRidePost = await ridePostsModel.findByIdAndUpdate(id, {
         vacantSeats: Number(ridePost?.vacantSeats) - numberOfSeats,
         $push: { bookingIds: afterBook?._id }
     })
+
+    // send  notification to driver
+
+    io.to(ridePost.driverEmail).emit("ride-booked", { email: passengerData.email, name: passengerData.name })
 
 
     resSend(res, 200, "Ride Placed Successfully !", { result, updateRidePost })

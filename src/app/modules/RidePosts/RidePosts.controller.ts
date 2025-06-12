@@ -39,13 +39,9 @@ const getAllRidesForPassenger = catchAsync(async (req, res) => {
     }
   }
 
-  const result = await ridePostsModel.find(query);
+  const posts = await ridePostsModel.find(query);
 
-  if (result.length === 0) {
-    return resSend(res, 404, "No rides found!", []);
-  }
-
-  resSend(res, 200, "All rides retrieved successfully", result);
+  resSend(res, 200, "All rides retrieved successfully", posts);
 });
 
 
@@ -64,7 +60,7 @@ const postARide = catchAsync(async (req, res) => {
 
     const driver = await driverModel.findOne({ email })
     const result = await ridePostsModel.create({
-        driverName: driver?.name, driverEmail: driver?.email, ...body
+        driverName: driver?.name, driverEmail: driver?.email, driverRating: driver?.rating, driverPhone: driver?.contactNumber, ...body
     })
     resSend(res, 200, "Ride Placed Successfully !", result)
 })

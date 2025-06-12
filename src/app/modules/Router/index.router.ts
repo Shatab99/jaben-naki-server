@@ -9,6 +9,7 @@ import { kycRouter } from "../KycVerification/kyc.route";
 import { BookRidesRouter } from "../BookRides/BookRide.router";
 import { startRideRouter } from "../StartRide/startRide.router";
 import { completeRideRouter } from "../CompleteRideActions/completeRide.router";
+import { driverReviewRouter } from "../driverReview/driverReview.router";
 
 
 
@@ -55,6 +56,10 @@ const modules = [
     {
         path : "/completeRide",
         route: completeRideRouter
+    },
+    {
+        path : "/review",
+        route: driverReviewRouter
     },
 ]
 

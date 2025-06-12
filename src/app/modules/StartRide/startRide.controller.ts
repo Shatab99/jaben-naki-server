@@ -1,3 +1,4 @@
+import { io } from "../../../server";
 import resSend from "../../GlobalHandelers/resSend.handler";
 import catchAsync from "../../Utils/catchAsync";
 import { bookRideModel } from "../BookRides/BookRide.model";
@@ -54,6 +55,13 @@ const createStartRide = catchAsync(async (req, res) => {
     );
     //delete Ride post
     await ridePostsModel.findByIdAndDelete(ridePostId);
+
+    // send notification to passengers
+    const passengerEmails = passengerBooked.map(p => p.email);
+
+    passengerEmails.forEach(email => {
+        io.to(email).emit("ride-started", { startRideId: insertInStartRide._id });
+    });
 
     resSend(res, 200, "You have Started Ride . FiAmanillah for your journey ☺", { startRideId: insertInStartRide._id })
 })

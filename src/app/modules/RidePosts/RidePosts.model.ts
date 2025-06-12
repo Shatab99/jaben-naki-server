@@ -10,6 +10,8 @@ const formatDate = (date: Date): string => {
 
 const ridePostsSchema = new Schema<TRidePosts>({
     driverEmail: { type: String, required: true },
+    driverRating: { type: Number, required: true },
+    driverPhone: { type: String, required: true },
     driverName: { type: String, required: true },
     from: { type: String, required: true },
     pickUpPoint: { type: String, required: true },
